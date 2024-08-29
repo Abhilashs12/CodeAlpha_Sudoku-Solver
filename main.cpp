@@ -17,21 +17,20 @@ void printGrid(const vector<vector<int>>& grid) {
 
 
 bool isSafe(const vector<vector<int>>& grid, int row, int col, int num) {
-    // Check if the number is not repeated in the row
+    
     for (int x = 0; x < SIZE; ++x) {
         if (grid[row][x] == num) {
             return false;
         }
     }
 
-    // Check if the number is not repeated in the column
     for (int x = 0; x < SIZE; ++x) {
         if (grid[x][col] == num) {
             return false;
         }
     }
 
-    // Check if the number is not repeated in the 3x3 sub-grid
+    
     int startRow = row - row % 3;
     int startCol = col - col % 3;
     for (int i = 0; i < 3; ++i) {
@@ -45,12 +44,12 @@ bool isSafe(const vector<vector<int>>& grid, int row, int col, int num) {
     return true;
 }
 
-// Function to solve the Sudoku using backtracking
+
 bool solveSudoku(vector<vector<int>>& grid) {
     int row, col;
     bool empty = false;
 
-    // Find an empty cell
+
     for (row = 0; row < SIZE; ++row) {
         for (col = 0; col < SIZE; ++col) {
             if (grid[row][col] == 0) {
@@ -61,10 +60,10 @@ bool solveSudoku(vector<vector<int>>& grid) {
         if (empty) break;
     }
 
-    // If there is no empty cell left, the Sudoku is solved
+   
     if (!empty) return true;
 
-    // Try placing numbers from 1 to 9 in the empty cell
+    
     for (int num = 1; num <= SIZE; ++num) {
         if (isSafe(grid, row, col, num)) {
             grid[row][col] = num;
@@ -73,7 +72,7 @@ bool solveSudoku(vector<vector<int>>& grid) {
                 return true;
             }
 
-            // If placing num doesn't lead to a solution, reset and try next number
+            
             grid[row][col] = 0;
         }
     }
